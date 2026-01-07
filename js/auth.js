@@ -1,23 +1,30 @@
-import { auth, db } from "./firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { showView } from './nav.js';
 
-if (document.getElementById("registerForm")) {
-  document.getElementById("registerForm").onsubmit = async e => {
-    e.preventDefault();
-    const email = regEmail.value;
-    const pass = regPassword.value;
-    const u = await createUserWithEmailAndPassword(auth, email, pass);
-    await setDoc(doc(db, "users", u.user.uid), { email, coins: 0 });
-    location.href = "login.html";
-  };
-}
+const auth = getAuth();
 
-if (document.getElementById("loginForm")) {
-  document.getElementById("loginForm").onsubmit = async e => {
-    e.preventDefault();
-    await signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value);
-    location.href = "wallet.html";
-  };
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // USER LOGGED IN
+        document.getElementById('app-header').classList.remove('hidden');
+        document.getElementById('bottom-nav').classList.remove('hidden');
+        showView('dashboard'); // Redirect to dashboard
+    } else {
+        // USER LOGGED OUT - Show Login Screen
+        document.getElementById('app-header').classList.add('hidden');
+        document.getElementById('bottom-nav').classList.add('hidden');
+        renderLoginScreen();
+    }
+});
+
+function renderLoginScreen() {
+    document.getElementById('main-content').innerHTML = `
+        <div class="auth-container">
+            <h2>Welcome to ClutchWar</h2>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="pass" placeholder="Password">
+            <button onclick="handleLogin()" class="btn-primary">LOGIN</button>
+            <p>Don't have an account? <span>Sign Up</span></p>
+        </div>
+    `;
 }
