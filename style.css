@@ -1,33 +1,109 @@
+/* =========================================
+   1. CORE APP SHELL & THEME
+   ========================================= */
 :root {
-    --bg: #0b0b14;
+    --bg-color: #0b0b14;
     --surface: #161625;
-    --accent: #ff4b2b;
+    --surface-light: #1f1f35;
+    --accent: #ff4b2b; /* Electric Red-Orange */
+    --accent-glow: rgba(255, 75, 43, 0.3);
+    --gold: #ffd700;
     --text-main: #ffffff;
     --text-dim: #a0a0a0;
+    --border: #2a2a3a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background-color: var(--bg);
+    background-color: var(--bg-color);
     color: var(--text-main);
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    overflow: hidden; /* Prevent body scroll, scroll only main-content */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Fixes the app shell */
 }
 
-/* App Header */
+.hidden { display: none !important; }
+
+/* =========================================
+   2. FIXED COMPONENTS (Header & Nav)
+   ========================================= */
 #app-header {
     height: 60px;
+    background: var(--surface);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    background: var(--surface);
-    border-bottom: 1px solid #2a2a3a;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--border);
     position: fixed;
-    top: 0; width: 100%; z-index: 100;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
-/* Main Content Area */
+.brand {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.brand span { color: var(--accent); }
+
+.wallet-pill {
+    background: var(--surface-light);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#bottom-nav {
+    height: 70px;
+    background: var(--surface);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+}
+
+.nav-item {
+    color: var(--text-dim);
+    text-align: center;
+    font-size: 0.7rem;
+    cursor: pointer;
+    flex: 1;
+}
+
+.nav-item i {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.nav-item.active {
+    color: var(--accent);
+}
+
+/* =========================================
+   3. MAIN CONTENT SCROLL AREA
+   ========================================= */
 #main-content {
     margin-top: 60px;
     margin-bottom: 70px;
@@ -36,20 +112,133 @@ body {
     padding: 15px;
 }
 
-/* Bottom Navigation */
-#bottom-nav {
-    height: 70px;
+/* =========================================
+   4. AUTHENTICATION (Login/Register)
+   ========================================= */
+.card {
     background: var(--surface);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: fixed;
-    bottom: 0; width: 100%;
-    border-top: 1px solid #2a2a3a;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
 }
 
-.nav-item { color: var(--text-dim); text-align: center; font-size: 12px; cursor: pointer; }
-.nav-item.active { color: var(--accent); }
-.nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
+.auth-form {
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+}
 
-.hidden { display: none !important; }
+.auth-form h2 { margin-bottom: 20px; }
+
+input {
+    width: 100%;
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   5. DASHBOARD & TOURNAMENT CARDS
+   ========================================= */
+.tab-bar {
+    display: flex;
+    background: var(--surface);
+    padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    padding: 10px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.tab-btn.active {
+    background: var(--accent);
+    color: white;
+}
+
+.match-card {
+    background: var(--surface);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.card-header {
+    background: var(--surface-light);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.match-details { padding: 15px; }
+
+.match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.grid-item span { font-size: 0.7rem; color: var(--text-dim); display: block; }
+.grid-item b { font-size: 1rem; color: var(--gold); }
+
+/* =========================================
+   6. WALLET STYLING
+   ========================================= */
+.wallet-card {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(145deg, var(--surface), #1a1a2e);
+}
+
+.balance-text {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin: 10px 0;
+}
+
+.add-coins-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.add-coins-grid button {
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    padding: 10px;
+}
+
+.withdraw-btn {
+    margin-top: 15px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
