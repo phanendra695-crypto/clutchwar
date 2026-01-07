@@ -1,42 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ClutchWar</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ClutchWar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<header>
-  <h1>🔥 ClutchWar</h1>
-  <p>Skill-Based Free Fire Tournaments</p>
-</header>
+    <header id="app-header" class="hidden">
+        <div class="brand">CLUTCH<span>WAR</span></div>
+        <div class="wallet-pill" onclick="showView('wallet')">
+            <i class="fas fa-coins"></i> <span id="balance-display">0</span>
+        </div>
+    </header>
 
-<nav>
-  <a href="index.html">Home</a>
+    <div id="main-content">
+        <div id="splash-screen">
+            <h1>ClutchWar</h1>
+            <div class="loader"></div>
+        </div>
+    </div>
 
-  <span id="guestNav">
-    <a href="login.html">Login</a>
-    <a href="register.html">Sign Up</a>
-  </span>
+    <nav id="bottom-nav" class="hidden">
+        <div class="nav-item active" id="nav-home" onclick="showView('dashboard')">
+            <i class="fas fa-gamepad"></i><span>Matches</span>
+        </div>
+        <div class="nav-item" id="nav-wallet" onclick="showView('wallet')">
+            <i class="fas fa-wallet"></i><span>Wallet</span>
+        </div>
+        <div class="nav-item" id="nav-profile" onclick="showView('profile')">
+            <i class="fas fa-user-circle"></i><span>Profile</span>
+        </div>
+    </nav>
 
-  <span id="userNav" style="display:none;">
-    <a href="tournaments.html">Tournaments</a>
-    <a href="wallet.html">Wallet</a>
-    <a href="#" id="logoutBtn">Logout</a>
-  </span>
-</nav>
-
-<section class="hero">
-  <h2>Compete • Clutch • Win</h2>
-  <p>Professional Free Fire Tournaments</p>
-  <a class="btn" href="register.html">Get Started</a>
-</section>
-
-<footer>
-  © 2026 clutchwar.online
-</footer>
-
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/nav.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/nav.js"></script>
 </body>
 </html>
