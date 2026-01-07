@@ -4,19 +4,21 @@ import { showView } from './nav.js';
 const auth = getAuth();
 
 onAuthStateChanged(auth, (user) => {
+    const header = document.getElementById('app-header');
+    const nav = document.getElementById('bottom-nav');
+
     if (user) {
-        // USER LOGGED IN
-        document.getElementById('app-header').classList.remove('hidden');
-        document.getElementById('bottom-nav').classList.remove('hidden');
-        showView('dashboard'); // Redirect to dashboard
+        // Logged In: Show App Shell
+        header.classList.remove('hidden');
+        nav.classList.remove('hidden');
+        showView('dashboard');
     } else {
-        // USER LOGGED OUT - Show Login Screen
-        document.getElementById('app-header').classList.add('hidden');
-        document.getElementById('bottom-nav').classList.add('hidden');
-        renderLoginScreen();
+        // Logged Out: Hide UI and show Login
+        header.classList.add('hidden');
+        nav.classList.add('hidden');
+        showView('login');
     }
 });
-
 function renderLoginScreen() {
     document.getElementById('main-content').innerHTML = `
         <div class="auth-container">
