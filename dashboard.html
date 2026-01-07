@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClutchWar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app">
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <h2>🔥 ClutchWar</h2>
+  <span id="coinTop">🪙 0</span>
+</header>
+
+<!-- WALLET SUMMARY -->
+<section class="wallet-box">
+  <div>
+    <p>Total Balance</p>
+    <h1 id="walletBalance">0</h1>
+  </div>
+  <div class="wallet-actions">
+    <button onclick="location.href='wallet.html'">ADD</button>
+    <button onclick="location.href='withdraw.html'" class="danger">WITHDRAW</button>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="active">Ongoing</button>
+  <button>Upcoming</button>
+  <button>Completed</button>
+</div>
+
+<!-- TOURNAMENT CARD -->
+<div class="match-card">
+  <img src="https://i.imgur.com/4ZQZ4ZL.jpg">
+  <div class="match-info">
+    <h3>Clash Squad</h3>
+    <p>Entry: 20 Coins</p>
+    <p>Prize Pool: ₹800</p>
+    <button>JOIN</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="active">🏠</button>
+  <button onclick="location.href='tournaments.html'">🎮</button>
+  <button onclick="location.href='wallet.html'">🪙</button>
+  <button onclick="location.href='profile.html'">👤</button>
+</nav>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
