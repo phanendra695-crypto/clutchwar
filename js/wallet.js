@@ -1,18 +1,34 @@
-import { auth, db } from "./firebase.js";
-import { doc, getDoc, updateDoc }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
-auth.onAuthStateChanged(async u => {
-  if (!u) location.href = "login.html";
-  const ref = doc(db, "users", u.uid);
-  const snap = await getDoc(ref);
-  coinBalance.innerText = snap.data().coins + " Coins";
+const db = getFirestore();
+const auth = getAuth();
 
-  document.querySelectorAll("button").forEach(b => {
-    b.onclick = async () => {
-      const amt = parseInt(b.innerText.replace("₹",""));
-      await updateDoc(ref, { coins: snap.data().coins + amt });
-      location.reload();
-    };
-  });
-});
+export function initWallet() {
+    const user = auth.currentUser;
+    
+    // Real-time listener for balance
+    onSnapshot(doc(db, "users", user.uid), (doc) => {
+        const balance = doc.data().balance;
+        document.getElementById('balance-display').innerText = balance;
+        if(document.getElementById('wallet-amt')) {
+            document.getElementById('wallet-amt').innerText = balance;
+        }
+    });
+}
+
+window.requestWithdrawal = async () => {
+    const amount = prompt("Enter amount to withdraw:");
+    const upi = prompt("Enter UPI ID:");
+
+    if (amount && upi) {
+        await addDoc(collection(db, "withdrawals"), {
+            uid: auth.currentUser.uid,
+            amount: Number(amount),
+            upi: upi,
+            status: "pending",
+            timestamp: Date.now()
+        });
+        alert("Withdrawal request sent!");
+    }
+};
