@@ -1,13 +1,19 @@
-import { db } from "./firebase.js";
-import { collection, addDoc }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-document.querySelector("button").onclick = async () => {
-  const i = document.querySelectorAll("input");
-  await addDoc(collection(db, "tournaments"), {
-    name: i[0].value,
-    fee: i[1].value,
-    time: i[2].value
-  });
-  alert("Tournament Created");
-};
+const db = getFirestore();
+
+export async function createTournament(data) {
+    // Data: { title, entryFee, prize, time, type }
+    try {
+        await addDoc(collection(db, "tournaments"), {
+            ...data,
+            roomId: "",
+            roomPass: "",
+            revealTime: null,
+            status: "upcoming"
+        });
+        alert("Match Created!");
+    } catch (e) {
+        console.error("Error adding match: ", e);
+    }
+}
