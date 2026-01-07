@@ -1,10 +1,8 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>ClutchWar | Free Fire Tournaments</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>ClutchWar</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -15,20 +13,30 @@
 
 <nav>
   <a href="index.html">Home</a>
-  <a href="tournaments.html">Tournaments</a>
-  <a href="wallet.html">Wallet</a>
-  <a href="login.html">Login</a>
+
+  <span id="guestNav">
+    <a href="login.html">Login</a>
+    <a href="register.html">Sign Up</a>
+  </span>
+
+  <span id="userNav" style="display:none;">
+    <a href="tournaments.html">Tournaments</a>
+    <a href="wallet.html">Wallet</a>
+    <a href="#" id="logoutBtn">Logout</a>
+  </span>
 </nav>
 
 <section class="hero">
   <h2>Compete • Clutch • Win</h2>
-  <p>Join Free Fire tournaments and win real rewards.</p>
+  <p>Professional Free Fire Tournaments</p>
   <a class="btn" href="register.html">Get Started</a>
 </section>
 
 <footer>
-  <p>© 2026 ClutchWar.online</p>
+  © 2026 clutchwar.online
 </footer>
 
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/nav.js"></script>
 </body>
 </html>
